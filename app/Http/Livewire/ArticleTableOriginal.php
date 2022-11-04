@@ -18,22 +18,14 @@ class ArticleTable extends Component
     // Used for querying data to retrieve
     public $pagination;
     public $lastNsId;
-    public $filters;
 
     // Override this to initialize our table 
     public function mount()
     {
-        // Let's use this for search, filter, and sort logic  
-        $this->filters    = [];
         $this->pagination = 10;
         $this->initializeData();
     }
 
-    // When filters is updated, re-initialize data
-    public function updatedFiltersSearch()
-    {
-        $this->initializeData();
-    }
 
     /**
      * Gets the base query
@@ -41,10 +33,10 @@ class ArticleTable extends Component
     public function getBaseQuery()
     {
         // Let's quickly refresh the totalRows every time we check with the db
-        $this->totalRows = Article::filterQuery($this->filters)->count();
+        $this->totalRows = Article::query()->count();
 
         // Most importantly, please return none-Sub rows to avoid duplicates in our $dataRows list
-        return Article::filterQuery($this->filters)->whereNull('lead_article_id');
+        return Article::query()->whereNull('lead_article_id');
     }
 
     /**
@@ -58,7 +50,7 @@ class ArticleTable extends Component
         ->limit($this->pagination*2)
         ->get();
 
-        $this->addListToData( $noneSubList, true );
+        $this->addListToData( $noneSubList );
     }
 
     /**
@@ -74,18 +66,16 @@ class ArticleTable extends Component
        
         $this->addListToData( $noneSubList );
     }
-
     
 
     /**
      * 1. Merges none-Sub List data with Sub rows.
      * 2. Adds the merged row in proper order into the 
-     * $dataRows attribute we'll pass to the client using dispatchBrowserEvent
+     * $dataRows attribute that holds our accumulated rows
      * 3. Updates the $lastNsId reference 
      */
-    public function addListToData($noneSubList, $resetClientList=false)
+    public function addListToData($noneSubList)
     {
-        $this->dataRows = array();
         $subList = $this->getSubRows($noneSubList);
         foreach( $noneSubList as $item ){
             $this->dataRows[] = $item;
@@ -96,8 +86,6 @@ class ArticleTable extends Component
                 }
             }
         }
-
-        $this->dispatchBrowserEvent('data-updated', ['newData' => $this->dataRows, 'reset'=>$resetClientList]); 
     }
 
     /**
@@ -110,7 +98,7 @@ class ArticleTable extends Component
             $idList[] = $item->id;
         }
 
-        return Article::filterQuery($this->filters)
+        return Article::query()
         ->whereIn('lead_article_id', $idList)
         ->get();
     }

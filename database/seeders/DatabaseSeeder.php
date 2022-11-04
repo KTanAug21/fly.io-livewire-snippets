@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
         # allowing us to group together same urls
         $iter = 0;
         $urlList = [];
-        while($iter<100){
+        while($iter<30000){
             $urlList[] = $this->faker->url();
             $iter++;
         }
@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
         $iter = 0;
         $unqUrlList = []; # We'll keep our unique urls here
 
-        while($iter<300){  
+        while($iter<50000){  
             # Let's get a url from our finite list of urls
             $urlIndex = rand(0,count($urlList)-1);
             $url = $urlList[$urlIndex];

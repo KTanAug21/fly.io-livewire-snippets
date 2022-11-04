@@ -1,23 +1,27 @@
 <div className="px-10">
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div class="text-sm lg:flex-grow">
-            <a href="#" class="block mt-4 lg:inline-block lg:mt-0 mr-4">
-            Current Rows {{ count($dataRows) }} 
+            <a id="current-rows" href="#" class="block mt-4 lg:inline-block lg:mt-0 mr-4">
+            Current Rows 0 
             </a>
+
             <a href="#" class="block mt-4 lg:inline-block lg:mt-0 mr-4">
-                Max Rows {{ $totalRows }}
+                Added Rows {{ count($dataRows ) }}Max Rows {{ $totalRows }}
             </a>
         </div>
-        @if( count($dataRows) < $totalRows )
-            <div wire:poll.5s>
-                Loading more data... 
-                {{ $this->nextPageData() }}
-                {{ $this->dispatchBrowserEvent('data-updated', ['newData' => $dataRows]); }}
-            </div>
-        @endif
+        <div> 
+            <input id="search_bar" type="text" wire:model.debounce.500ms="filters.search"  placeholder="Search" class="bg-gray-50 border border-gray-300 ">
+            @if( count($dataRows) < $totalRows )
+                <div wire:poll.5s>
+                    Loading more data... 
+                    {{ $this->nextPageData() }}
+                </div>
+            @endif
+        </div>
     </div>
    
     <div class="relative overflow-x-auto shadow-md rounded-lg">
+        
         <table class="w-full text-sm text-left text-gray-500" id="myTable">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <th><div class="py-3 px-6 flex items-center" >URL</div></th>
@@ -39,13 +43,27 @@
         var myData   = JSON.parse('<?php echo json_encode($dataRows) ?>');
         var page     = 1;
         var startRow = 0;
+        var filters  = {};
         refreshPage();
-    
+
+       
         window.addEventListener('data-updated', event => {
-           myData = event.detail.newData;
-           refreshPage();
+            console.log(event.detail);
+            if( event.detail.reset ){
+                console.log('reseting');
+                myData = [];
+            }
+            for( var n=0; n<event.detail.newData.length; n++ ){
+                myData.push(event.detail.newData[n]);
+            }
+            refreshPage();
         });
-    
+        
+        function filtersAvailable()
+        {
+            return ( filters.search != '' && filters.search != undefined );
+        }
+
         function calculatePageStartRow( mPage )
         {
             console.log('Calculating start row for page ', mPage);
@@ -70,7 +88,7 @@
     
         function refreshPage()
         {
-            console.log(myData)
+            document.getElementById("current-rows").innerHTML = 'Current Rows: '+myData.length;
             startRow = calculatePageStartRow(page);
             document.getElementById("tbody").innerHTML = '';
             for(let row=startRow; row<myData.length && row<startRow+10; row++){
@@ -93,6 +111,7 @@
                 cell3.innerHTML = '<div class="py-3 '+className+' px-6 flex items-center">' + item['id'] + '</div>';
                 cell4.innerHTML = '<div class="py-3 '+className+' px-6 flex items-center">' + item['lead_article_id'] + '</div>';
             }
+            
         }
     </script>  
 </div>
