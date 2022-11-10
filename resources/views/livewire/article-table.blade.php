@@ -53,9 +53,7 @@
                 console.log('reseting');
                 myData = [];
             }
-            for( var n=0; n<event.detail.newData.length; n++ ){
-                myData.push(event.detail.newData[n]);
-            }
+            myData.push(...event.detail.newData)
             refreshPage();
         });
         
