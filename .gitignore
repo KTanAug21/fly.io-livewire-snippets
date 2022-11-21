@@ -14,3 +14,7 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+composer.lock
+database.sqlite
+database.sqlite-journal
+package-lock.jsonpackage.json

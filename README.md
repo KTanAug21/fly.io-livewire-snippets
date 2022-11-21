@@ -1,66 +1,52 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Set up
+1. Clone the repository `git clone git@github.com:KTanAug21/hoard-table-data-using-livewire.git`
+2. Get our vendor packages, run `composer update`
+3. Set up your .env file with your preferred database connection, may I recommend a simple sqlite for this demo?
+```
+DB_CONNECTION="sqlite"
+DB_DATABASE="/path/to/app/folder/database.sqlite"
+```
+4. Run the migration `php artisan migrate`
+5. Run the seeder `php artisan db:seed` or  `php artisan migrate:fresh --seed`
+5. Run `php artisan serve`
+6. Follow the Tailwind setup [here](https://tailwindcss.com/docs/guides/laravel) and Run `npm run dev`
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Consitution
+1. This is a Laravel project :)
+2. Makes use of [Livewire](https://laravel-livewire.com/docs/2.x/quickstart#install-livewire)
+3. And [Tailwind](https://tailwindcss.com/docs/guides/laravel), hence the `npm run dev` above
 
-## About Laravel
+## Hoarding Order With Livewire
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Tables with grouped rows have three kinds of rows:
+1. A "Normal" data that does not belong to any group
+2. A "Lead" data that leads a group. It is always followed by "Sub" rows.
+3. A "Sub" data that belongs to a group. It always follows a "Lead" row, or another "Sub" row following its "Lead" row.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Paginating a table that contains grouped rows can become complicated when implemented via server-side pagination. 
+For example, imagine only 10 rows can be displayed per page, and the 9th data is a Lead with 3 Sub rows. The 9th row will be the 9th data ofcourse, acting as a Lead row.
+The 10th row of the page will hold the 1st Sub data, while the remaining two Subs will take up the 1st and 2nd row positions in the next page.
+To implement this display, the server would have to take note of the remaining 2 rows to show in the next page, as well as what is the next data to show after the remaining Sub rows. 
 
-## Learning Laravel
+Client-side pagination on the other hand does not need to keep track of this, it would need only to display data from a starting index to the last. 
+The only downside in client-pagination is the bulkiness of an entire data set it would have to download to paginate the data.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Client-Pagination + Data Accumulation
+This is easily done through Livewire. I have written an article on this here: https://fly.io/laravel-bytes/hoarding-order/
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+We can make client-pagination work without downloading entire data sets. We can instead rely on data accumulation.
+The client-paginated table will paginate based on indices on initial data it has, while we fetch more data in the background to complete the entire dataset.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+## Tips on Data Accumulation
+Read my full article here: https://fly.io/laravel-bytes/offloading-data-baggage/
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+1. Dont accumulate data from the server, we don't want to send back larger and larager datasets to the client
+2. Accumulate data in the client, since the client is receiving the data batches from the server
+3. Data accumulation in the client might take up too much space in user devices, so it's better to find conditions when we would want to reset the list.
+For example, during table filter, the only relevant data would be those under the filter scope. Other data in the accumulated list we have are not relevant, so, it's safe to clear the accumulated data
+and replace with relevant data under the filter's scope.
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

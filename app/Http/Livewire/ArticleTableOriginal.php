@@ -6,7 +6,7 @@ use App\Models\Article;
 use Livewire\Component;
 use Log;
 
-class ArticleTable extends Component
+class ArticleTestTable extends Component
 {
     // List that accumulates data overtime
     public $dataRows;
