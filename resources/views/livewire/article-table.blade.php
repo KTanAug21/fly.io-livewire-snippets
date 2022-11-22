@@ -52,6 +52,7 @@
             if( event.detail.reset ){
                 console.log('reseting');
                 myData = [];
+                page   = 1;
             }
             myData.push(...event.detail.newData)
             refreshPage();
