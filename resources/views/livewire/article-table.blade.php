@@ -11,12 +11,12 @@
         </div>
         <div> 
             <input id="search_bar" type="text" wire:model.debounce.500ms="filters.search"  placeholder="Search" class="bg-gray-50 border border-gray-300 ">
-            @if( count($dataRows) < $totalRows )
+            <!--if( count($dataRows) < $totalRows )
                 <div wire:poll.5s>
                     Loading more data... 
-                    {{ $this->nextPageData() }}
+                    { $this->nextPageData() }}
                 </div>
-            @endif
+            endif-->
         </div>
     </div>
    
@@ -40,7 +40,7 @@
 
     <script>
         var mTable   = document.getElementById("myTable");
-        var myData   = JSON.parse('<?php echo json_encode($dataRows) ?>');
+        var myData   = @js($dataRows);//JSON.parse('<?php echo json_encode($dataRows) ?>');
         var page     = 1;
         var startRow = 0;
         var filters  = {};
@@ -75,6 +75,8 @@
                 page = page+1;
                 refreshPage();
             }
+            // Get more data allowance, instead of relying on livewire poll commented out above
+            @this.nextPageData();
         }
     
         function prevPage()
