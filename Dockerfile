@@ -81,7 +81,6 @@ RUN if [ -f "vite.config.js" ]; then \
         npm run $ASSET_CMD; \
     fi;
 
-RUN npm run dev
 # From our base container created above, we
 # create our final image, adding in static
 # assets that we generated above
