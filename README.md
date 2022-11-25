@@ -1,7 +1,8 @@
 ## Finally deployed through Fly.io!
-Livewire apps are faster closer to your users. Get your Laravel-Livewire app in a jiffy with [Fly.io](https://fly.io/docs/laravel/), wherever your users may be!
+Livewire apps are faster closer to your users. Deploy your Laravel-Livewire app in a jiffy with [Fly.io](https://fly.io/docs/laravel/), wherever your users may be!
 
 I finally deployed mine close to me with: https://ktan-app.fly.dev/
+
 
 ## Set up
 1. Clone the repository `git clone git@github.com:KTanAug21/hoard-table-data-using-livewire.git`
@@ -15,6 +16,10 @@ DB_DATABASE="/path/to/app/folder/database.sqlite"
 5. Run the seeder `php artisan db:seed` or  `php artisan migrate:fresh --seed`
 5. Run `php artisan serve`
 6. Follow the Tailwind setup [here](https://tailwindcss.com/docs/guides/laravel) and Run `npm run dev`
+
+## Deploying through Fly.io
+1. Follow the deployment instructions [here](https://fly.io/docs/laravel/).
+2. You might run into "Mix manifest not found" error. If so, quickly remove `public/hot` from your `.gitignore` file
 
 ## Constitution
 1. This is a [Laravel](https://laravel.com/) project :)
