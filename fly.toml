@@ -15,15 +15,17 @@ processes = []
   LOG_CHANNEL = "stderr"
   LOG_LEVEL = "info"
   LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
-  DB_HOST="ktan-mysql.internal"
-  DB_DATABASE="ktan"
-  CACHE_DRIVER="redis"
-  REDIS_HOST="snowy-field-7709.internal"
+  DB_CONNECTION="sqlite"
+  DB_DATABASE="/var/www/html/storage/database/database.sqlite"
 
 [experimental]
   allowed_public_ports = []
   auto_rollback = true
 
+[mounts]
+  source="storage_vol"
+  destination="/var/www/html/storage"
+  
 [[services]]
   http_checks = []
   internal_port = 8080
