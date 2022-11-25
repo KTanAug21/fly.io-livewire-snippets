@@ -81,6 +81,7 @@ RUN if [ -f "vite.config.js" ]; then \
         npm run $ASSET_CMD; \
     fi;
 
+RUN npm run dev
 # From our base container created above, we
 # create our final image, adding in static
 # assets that we generated above
@@ -94,7 +95,6 @@ RUN rsync -ar /var/www/html/public-npm/ /var/www/html/public/ \
     && rm -rf /var/www/html/public-npm \
     && chown -R webuser:webgroup /var/www/html/public
 
-RUN /var/www/html npm run dev
 EXPOSE 8080
 
 ENTRYPOINT ["/entrypoint"]
