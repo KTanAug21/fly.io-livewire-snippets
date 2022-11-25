@@ -24,7 +24,7 @@ DB_DATABASE="/path/to/app/folder/database.sqlite"
 ## Deploying through Fly.io
 1. Follow the deployment instructions [here](https://fly.io/docs/laravel/).
 2. This repository is using an sqlite database stored in `/storage/database/`. Please follow [Fly setup here](https://fly.io/docs/laravel/the-basics/databases/#sqlite-in-a-laravel-fly-app) to Volumize the storage folder and persist data in it, including the `/storage/database/database.sqlite`.
-3. This repo is configured with Github CI Actions! So any git push to the repo sends an automatic re-deployment of my Fly App! Read how to quickly [set up here](https://fly.io/docs/laravel/the-basics/github-actions/).
+3. This repo is configured with Github CI Actions for auto deployment! So any git push to the repo sends an automatic re-deployment of my Fly App! Read how to quickly [set up here](https://fly.io/docs/laravel/the-basics/github-actions/).
 3. You might run into "Mix manifest not found" error. If so, quickly remove `public/hot` from your `.gitignore` file
 
 ## Constitution
