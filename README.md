@@ -31,6 +31,7 @@ DB_DATABASE="/path/to/app/folder/database.sqlite"
 1. This is a [Laravel](https://laravel.com/) project :)
 2. Makes use of [Livewire](https://laravel-livewire.com/docs/2.x/quickstart#install-livewire)
 3. And [Tailwind](https://tailwindcss.com/docs/guides/laravel), hence the `npm run dev` above
+4. Flown with [Fly.io](https://fly.io/)
 
 ## Hoarding Order With Livewire
 
