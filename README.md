@@ -1,5 +1,5 @@
 ## Finally deployed through Fly.io!
-Livewire apps are faster close to your users. 
+[Livewire](https://laravel-livewire.com/) apps--any apps really--are faster close to your users. 
 
 Deploy your Laravel-Livewire app in a jiffy with [Fly.io](https://fly.io/docs/laravel/), wherever your users may be!
 
