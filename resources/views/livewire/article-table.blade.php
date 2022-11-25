@@ -6,11 +6,12 @@
             </a>
 
             <a href="#" class="block mt-4 lg:inline-block lg:mt-0 mr-4">
-                Added Rows {{ count($dataRows ) }}Max Rows {{ $totalRows }}
+                Added Rows {{ count($dataRows ) }} Max Rows {{ $totalRows }}
             </a>
         </div>
         <div> 
             <input id="search_bar" type="text" wire:model.debounce.500ms="filters.search"  placeholder="Search" class="bg-gray-50 border border-gray-300 ">
+            <!--Replaced polling accumulation with nextpage allowance accumulation, check line 80 below-->
             <!--if( count($dataRows) < $totalRows )
                 <div wire:poll.5s>
                     Loading more data... 
@@ -71,11 +72,12 @@
     
         function nextPage()
         {   
+            // We can move to the next page since if there is anymore data, we can always
             if( calculatePageStartRow( page+1 ) < myData.length ){
                 page = page+1;
                 refreshPage();
             }
-            // Get more data allowance, instead of relying on livewire poll commented out above
+            // Get more next page allowance, instead of relying on livewire poll commented out above
             @this.nextPageData();
         }
     
