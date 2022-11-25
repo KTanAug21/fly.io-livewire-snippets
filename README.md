@@ -1,5 +1,7 @@
 ## Finally deployed through Fly.io!
-Livewire apps are faster closer to your users. Deploy your Laravel-Livewire app in a jiffy with [Fly.io](https://fly.io/docs/laravel/), wherever your users may be!
+Livewire apps are faster closer to your users. 
+
+Deploy your Laravel-Livewire app in a jiffy with [Fly.io](https://fly.io/docs/laravel/), wherever your users may be!
 
 I finally deployed mine close to me with: https://ktan-app.fly.dev/
 
@@ -19,6 +21,7 @@ DB_DATABASE="/path/to/app/folder/database.sqlite"
 
 ## Deploying through Fly.io
 1. Follow the deployment instructions [here](https://fly.io/docs/laravel/).
+2. This repository is using a sqlite database stored in `/storage/database/`. Please follow [Fly setup here](https://fly.io/docs/laravel/the-basics/databases/#sqlite-in-a-laravel-fly-app) to Volumize the storage file and persist data in it, including the `storage/database/database.sqlite`. 
 2. You might run into "Mix manifest not found" error. If so, quickly remove `public/hot` from your `.gitignore` file
 
 ## Constitution
