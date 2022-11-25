@@ -1,3 +1,8 @@
+## Finally deployed through Fly.io!
+Livewire apps are faster closer to your users. Get your Laravel-Livewire app in a jiffy with [Fly.io](https://fly.io/docs/laravel/), wherever your users may be!
+
+I finally deployed mine close to me with: https://ktan-app.fly.dev/
+
 ## Set up
 1. Clone the repository `git clone git@github.com:KTanAug21/hoard-table-data-using-livewire.git`
 2. Get our vendor packages, run `composer update`
@@ -11,8 +16,8 @@ DB_DATABASE="/path/to/app/folder/database.sqlite"
 5. Run `php artisan serve`
 6. Follow the Tailwind setup [here](https://tailwindcss.com/docs/guides/laravel) and Run `npm run dev`
 
-## Consitution
-1. This is a Laravel project :)
+## Constitution
+1. This is a [Laravel](https://laravel.com/) project :)
 2. Makes use of [Livewire](https://laravel-livewire.com/docs/2.x/quickstart#install-livewire)
 3. And [Tailwind](https://tailwindcss.com/docs/guides/laravel), hence the `npm run dev` above
 
@@ -47,6 +52,14 @@ Read my full article here: https://fly.io/laravel-bytes/offloading-data-baggage/
 3. Data accumulation in the client might take up too much space in user devices, so it's better to find conditions when we would want to reset the list.
 For example, during table filter, the only relevant data would be those under the filter scope. Other data in the accumulated list we have are not relevant, so, it's safe to clear the accumulated data
 and replace with relevant data under the filter's scope.
+
+## Replacing Polling
+In the early version of the ArticleTable.php, data accumulation was done through periodically calling the nextPageData method through Livewire:poll.
+
+Polling aimlessly for more data is a bit extravagant, and will definitely take too much space in our client devices in no time.
+
+To fix this, let's add a direction to our request for "data allowance". Every time our users clicks on Next Page button, that's the time when we ask for more data allowance by calling nextPageData.
+
 
 
 
