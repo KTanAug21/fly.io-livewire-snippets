@@ -8,7 +8,7 @@ use Log;
 
 class ArticleTable extends Component
 {
-    // List that accumulates data overtime
+    // List that accumulates  data overtime
     public $dataRows;
     
     // This is total data rows for reference, 
