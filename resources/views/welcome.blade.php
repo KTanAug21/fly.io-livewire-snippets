@@ -5,7 +5,7 @@
 
         <title>Livewire Table</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+       
         @livewireStyles
     </head>
     <body class="flex items-center justify-center min-h-screen">
