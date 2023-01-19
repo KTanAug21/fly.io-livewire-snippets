@@ -33,13 +33,12 @@ DB_DATABASE="/path/to/app/folder/database.sqlite"
 3. And [Tailwind](https://tailwindcss.com/docs/guides/laravel), hence the `npm run dev` above
 4. Flown with [Fly.io](https://fly.io/)
 
-## Hoarding Order With Livewire
+# Hoarding Order With Livewire
 
 Tables with grouped rows have three kinds of rows:
 1. A "Normal" data that does not belong to any group
 2. A "Lead" data that leads a group. It is always followed by "Sub" rows.
 3. A "Sub" data that belongs to a group. It always follows a "Lead" row, or another "Sub" row following its "Lead" row.
-
 
 Paginating a table that contains grouped rows can become complicated when implemented via server-side pagination. 
 For example, imagine only 10 rows can be displayed per page, and the 9th data is a Lead with 3 Sub rows. The 9th row will be the 9th data ofcourse, acting as a Lead row.
@@ -67,11 +66,21 @@ and replace with relevant data under the filter's scope.
 
 ## Replacing Polling
 In the early version of the ArticleTable.php, data accumulation was done through periodically calling the nextPageData method through Livewire:poll.
-
+ 
 Polling aimlessly for more data is a bit extravagant, and will definitely take too much space in our client devices in no time.
 
 To fix this, let's add a direction to our request for "data allowance". Every time our users clicks on Next Page button, that's the time when we ask for more data allowance by calling nextPageData.
 
+
+# Delayed Display of Isolated PDFs with Fly-replay and Livewire!
+
+Running global instances of our Laravel applications allows us to reduce geographical latency for users across different regions. But with it comes the responsibility of addressing regional-isolation of not only data, but files as well.
+
+In [this article](/laravel-bytes/displaying-fly-replay-livewire/) we address file isolation by talking with the right regional instance using fly-replay. We also add a cherry on top with the use of Livewire's `wire:init` directive to improve loading of pages displaying PDF files.
+
+## Relevant files
+1. We've added routes to a documents module in [`web.php`](https://github.com/KTanAug21/fly.io-livewire-snippets/blob/master/routes/web.php)
+2. The [Documents controller](https://github.com/KTanAug21/fly.io-livewire-snippets/blob/master/routes/web.php), Documents view page listing our available PDFs and iframe to display a PDF. 
 
 
 

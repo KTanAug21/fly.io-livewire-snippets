@@ -1,4 +1,4 @@
-# fly.toml file generated for ktan-app on 2022-10-19T16:54:29+03:00
+# fly.toml file generated for ktan-app on 2022-12-20T23:11:14+03:00
 
 app = "ktan-app"
 kill_signal = "SIGINT"
@@ -6,26 +6,29 @@ kill_timeout = 5
 processes = []
 
 [build]
-  [build.args] 
+  [build.args]
     NODE_VERSION = "14"
     PHP_VERSION = "8.1"
 
 [env]
   APP_ENV = "production"
-  LOG_CHANNEL = "stderr"
-  LOG_LEVEL = "info"
+  DB_CONNECTION = "sqlite"
+  DB_DATABASE = "/var/www/html/storage/database/database.sqlite"
+  LOG_CHANNEL = "stack"
+  LOG_LEVEL = "debug"
   LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
-  DB_CONNECTION="sqlite"
-  DB_DATABASE="/var/www/html/storage/database/database.sqlite"
+  SESSION_DRIVER="cookie"
+  SESSION_SECURE_COOKIE="true"
 
 [experimental]
   allowed_public_ports = []
   auto_rollback = true
+  enable_consul = true
 
 [mounts]
-  source="storage_vol"
-  destination="/var/www/html/storage"
-  
+  destination = "/var/www/html/storage"
+  source = "storage_vol"
+
 [[services]]
   http_checks = []
   internal_port = 8080

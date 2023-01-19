@@ -1,0 +1,35 @@
+# The fuse section describes settings for the FUSE file system. This file system
+# is used as a thin layer between the SQLite client in your application and the
+# storage on disk. It intercepts disk writes to determine transaction boundaries
+# so that those transactions can be saved and shipped to replicas.
+fuse:
+    # This is the path your application will access your SQLite database, it is the same value as the DB_DATABASE specified in your fly.toml
+    dir: "/var/www/html/storage/database"
+
+    # This option allows non-root users to access the fuse.dir above
+    # This option requires a properly configured fuse.conf file
+    allow-other: true
+
+# The data section describes settings for the internal LiteFS storage. 
+# Make sure to mount a volume that this directory is scoped in so it can be persisted across restarts.
+# However, this data should not be accessed directly by the user application..
+data:
+    dir: "/var/www/html/storage/litefs"
+
+# Execute this subprocess once LiteFS connects to the cluster.
+# The execution below basically starts our Laravel server 
+# Because remember, the below process was removed from .fly/entrypoint.sh to execute litefs instead
+exec: "supervisord -c /etc/supervisor/supervisord.conf"
+
+# The lease section specifies how the cluster will be managed. We're using the
+# "consul" lease type so that our application can dynamically change the primary.
+#
+# These environment variables will be available in your Fly.io application.
+# You must specify "experiement.enable_consul" for FLY_CONSUL_URL to be available.
+lease:
+    type: "consul"
+    advertise-url: "http://${HOSTNAME}.vm.${FLY_APP_NAME}.internal:20202"
+
+    consul:
+      url: "${FLY_CONSUL_URL}"
+      key: "litefs/${FLY_APP_NAME}"
