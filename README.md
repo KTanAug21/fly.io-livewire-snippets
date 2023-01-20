@@ -72,10 +72,9 @@ Polling aimlessly for more data is a bit extravagant, and will definitely take t
 To fix this, let's add a direction to our request for "data allowance". Every time our users clicks on Next Page button, that's the time when we ask for more data allowance by calling nextPageData.
 
 # Documentation
-<ul>
-<li>[Hoarding Order With Livewire](https://github.com/KTanAug21/fly.io-livewire-snippets/blob/master/_readme/hoard_order_livewire.md)</li>
-<li>[Delayed Display of Isolated PDFs with Fly-Replay and Livewire](https://github.com/KTanAug21/fly.io-livewire-snippets/blob/master/_readme/display_isolated_fly_replay_livewire.md)</li>
-</ul>
+1. [Hoarding Order With Livewire](https://github.com/KTanAug21/fly.io-livewire-snippets/blob/master/_readme/hoard_order_livewire.md)
+2. [Delayed Display of Isolated PDFs with Fly-Replay and Livewire](https://github.com/KTanAug21/fly.io-livewire-snippets/blob/master/_readme/display_isolated_fly_replay_livewire.md)
+
 
 
 
