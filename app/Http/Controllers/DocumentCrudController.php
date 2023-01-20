@@ -10,37 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Log;
 
 class DocumentCrudController extends Controller
-{
-    public function deleteAll()
-    {
-        // Delete all files in uploads directory
-        $files = Storage::allFiles('storage/uploads');
-        Storage::delete($files);
-        /*foreach( $files as $file ){
-            if( $file != 'storage/uploads/SampleDocument.pdf' )
-                Storage::delete($file);
-        }*/
-       
-        // Delete all files here
-        // Identify Primary to replay to
-        $lfHelper = new \App\Helpers\LiteFSHelper();
-   
-        // Decide replay
-        if( $lfHelper->forwardWriteRequest() ){     
-            Log::info('forwarding to primary...');   
-            $replayTo = $lfHelper->getPrimaryNodeId();
-            // Replay to identified
-            return response('', 200, [
-                'fly-replay' => "instance=$replayTo",
-            ]);
-        }else{
-            Log::info('DB deleting all for documents table in '.env('FLY_REGION') );
-
-            Document::truncate();
-            return redirect('documents');
-        }
-
-    }
+{    
 
     public function uploadFra(Request $request)
     {

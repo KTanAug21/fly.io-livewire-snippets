@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use DB;
-use Log;
 use App\Models\Document;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Response as FacadeResponse;
 
 class DocumentController extends Controller
 {
+    /**
+     * Returns the index page for the Documents module
+     */
     public function index()
     {
         $documents = Document::all();
@@ -19,6 +18,9 @@ class DocumentController extends Controller
         ]);
     }
 
+    /**
+     * Display file directly in user's browser
+     */
     public function display($id)
     {
         $pdfDetails = Document::find($id);
@@ -37,18 +39,14 @@ class DocumentController extends Controller
             $fileName = explode('/', $pdfDetails->full_path);
             $fileName = $fileName[(count($fileName))-1];
 
-            // Go ahead and access PDF 
-            $content = Storage::disk('local')
-            ->get( $pdfDetails->full_path );
-            $mimeType = Storage::mimeType( $pdfDetails->full_path );
+            // Accessible File Path
+            $filePath = Storage::path( $pdfDetails->full_path );
 
-            // Respond
-            return FacadeResponse::make($content, 200, [
-                'Content-Type' =>  $mimeType,
-                'Content-Disposition' => "inline;filename='$fileName';region='".env('FLY_REGION')."'"
-            ]);
+            // Respond with File
+            return response()->file( $filePath );
 
         }
+    
     }
   
 }
