@@ -1,38 +1,3 @@
-## Finally deployed through Fly.io!
-[Livewire](https://laravel-livewire.com/) apps--any apps really--are faster close to your users. 
-
-Deploy your Laravel-Livewire app in a jiffy with [Fly.io](https://fly.io/docs/laravel/), wherever your users may be!
-
-I finally deployed mine close to me in my own little space. 
-
-Visit https://ktan-app.fly.dev/, up in [Fly.io](https://fly.io/) :heartbeat:
-
-
-## Set up
-1. Clone the repository `git clone git@github.com:KTanAug21/hoard-table-data-using-livewire.git`
-2. Get our vendor packages, run `composer update`
-3. Set up your .env file with your preferred database connection, may I recommend a simple sqlite for this demo?
-```
-DB_CONNECTION="sqlite"
-DB_DATABASE="/path/to/app/folder/database.sqlite"
-```
-4. Run the migration `php artisan migrate`
-5. Run the seeder `php artisan db:seed` or  `php artisan migrate:fresh --seed`
-5. Run `php artisan serve`
-6. Follow the Tailwind setup [here](https://tailwindcss.com/docs/guides/laravel) and Run `npm run dev`
-
-## Deploying through Fly.io
-1. Follow the deployment instructions [here](https://fly.io/docs/laravel/).
-2. This repository is using an sqlite database stored in `/storage/database/`. Please follow [Fly setup here](https://fly.io/docs/laravel/the-basics/databases/#sqlite-in-a-laravel-fly-app) to Volumize the storage folder and persist data in it, including the `/storage/database/database.sqlite`.
-3. This repo is configured with Github CI Actions for auto deployment! So any git push to the repo sends an automatic re-deployment of my Fly App! Read how to quickly [set up here](https://fly.io/docs/laravel/the-basics/github-actions/).
-3. You might run into "Mix manifest not found" error. If so, make sure to remove any mix('...') found in your application. In this repository's case, the `resources/views/welcome.blade.php` came with a `<link href="{{ mix('/css/app.css') }}" rel="stylesheet">` I had to remove.
-
-## Constitution
-1. This is a [Laravel](https://laravel.com/) project :)
-2. Makes use of [Livewire](https://laravel-livewire.com/docs/2.x/quickstart#install-livewire)
-3. And [Tailwind](https://tailwindcss.com/docs/guides/laravel), hence the `npm run dev` above
-4. Flown with [Fly.io](https://fly.io/)
-
 # Hoarding Order With Livewire
 
 Tables with grouped rows have three kinds of rows:
@@ -70,12 +35,3 @@ In the early version of the ArticleTable.php, data accumulation was done through
 Polling aimlessly for more data is a bit extravagant, and will definitely take too much space in our client devices in no time.
 
 To fix this, let's add a direction to our request for "data allowance". Every time our users clicks on Next Page button, that's the time when we ask for more data allowance by calling nextPageData.
-
-# Documentation
-<ol>
-<li>Hoarding Order With Livewire</li>
-<li>Delayed Display of Isolated PDFs with Fly-Replay and Livewire</li>
-</ol>
-
-
-
