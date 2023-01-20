@@ -12,6 +12,13 @@ use Log;
 class DocumentCrudController extends Controller
 {    
 
+    /**
+     * WIP-Warning
+     * 
+     * This controller is under construction.
+     * Read at your own peace of mind. 
+     */
+    
     public function uploadFra(Request $request)
     {
         // Validation

@@ -20,6 +20,9 @@ class DocumentController extends Controller
 
     /**
      * Display file directly in user's browser
+     * 
+     * @param int $id
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory 
      */
     public function display($id)
     {
