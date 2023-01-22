@@ -18,7 +18,7 @@ class AllowWithSecret
     public function handle(Request $request, Closure $next)
     {
         if( !isset($_COOKIE[env('SECRET_COOKIE_NAME')]) ){
-            return response('', 404);
+            return response('', 403);
         }
         return $next($request);
     }
