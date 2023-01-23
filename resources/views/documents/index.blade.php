@@ -12,26 +12,6 @@
 
     <div class="w-full max-w-6xl">
         <h1 class="text-6xl font-normal leading-normal mt-0 mb-2 text-pink-800">Documents</h1> 
-        <div class="flex justify-between">
-            
-            <div>
-                <form action="/documents/upload" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div >Upload in {{ env('FLY_REGION')  }}</div>
-                    <input type="file" name="pdf" >
-                    <input type="hidden" name="region" value="{{ env('FLY_REGION') }}"/>
-                    <button type="submit" class="bg-blue-500 text-white pt-2 pb-2 px-3 rounded-md" >Submit</button>
-                </form>
-            </div>
-            <div>
-                <form action="/documents/uploadfra" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div >Upload in FRA</div>
-                    <input type="file" name="pdf" >
-                    <button type="submit" class="bg-blue-500 text-white pt-2 pb-2 px-3 rounded-md" >Submit</button>
-                </form>
-            </div>
-        </div>
         <div class="relative overflow-x-auto shadow-md rounded-lg">
             <table class="w-full text-sm text-left text-gray-500" id="myTable">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
