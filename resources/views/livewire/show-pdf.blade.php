@@ -3,6 +3,6 @@
    @if( $loadAllowed==true  )
       <iframe id="myIframe" class="w-full border-8" src="{{ URL::to('/documents/display/'.$recordId ) }}"></iframe>
    @else
-      Loading Iframe
+      Loading PDF
    @endif
 </div>
