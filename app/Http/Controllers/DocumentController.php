@@ -27,10 +27,10 @@ class DocumentController extends Controller
     public function display($id)
     {
         $pdfDetails = Document::find($id);
-        $flyRegion  = config('app.fly_region'); // env('FLY_REGION')
-
+        Log::info('our config var value is '.config('app.fly_region') );
+        
         // Decide replay
-        if( $pdfDetails->region_id != $flyRegion && $flyRegion != 'test'){     
+        if( $pdfDetails->region_id != config('app.fly_region') ){     
 
             // Replay to identified region
             return response('', 200, [
