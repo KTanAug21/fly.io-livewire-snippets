@@ -9,7 +9,7 @@ Visit https://ktan-app.fly.dev/, up in [Fly.io](https://fly.io/) :heartbeat:
 
 
 ## Set up
-1. Clone the repository `git clone git@github.com:KTanAug21/hoard-table-data-using-livewire.git`
+1. Clone the repository `git clone git@github.com:KTanAug21/fly.io-livewire-snippets.git`
 2. Get our vendor packages, run `composer update`
 3. Set up your .env file with your preferred database connection, may I recommend a simple sqlite for this demo?
 ```
@@ -17,7 +17,7 @@ DB_CONNECTION="sqlite"
 DB_DATABASE="/path/to/app/folder/database.sqlite"
 ```
 4. Run the migration `php artisan migrate`
-5. Run the seeder `php artisan db:seed` or  `php artisan migrate:fresh --seed`
+5. When following the article "Hoarding Order with Livewire", run the seeder `php artisan db:seed` or  `php artisan migrate:fresh --seed`
 5. Run `php artisan serve`
 6. Follow the Tailwind setup [here](https://tailwindcss.com/docs/guides/laravel) and Run `npm run dev`
 
@@ -31,7 +31,8 @@ DB_DATABASE="/path/to/app/folder/database.sqlite"
 1. This is a [Laravel](https://laravel.com/) project :)
 2. Makes use of [Livewire](https://laravel-livewire.com/docs/2.x/quickstart#install-livewire)
 3. And [Tailwind](https://tailwindcss.com/docs/guides/laravel), hence the `npm run dev` above
-4. Flown with [Fly.io](https://fly.io/)
+4. Flown with [Fly.io](https://fly.io/) in [two regions]() of our world.
+5. SQLite data synced between FRA and AMS instances with [LiteFS](https://fly.io/docs/laravel/advanced-guides/global-sqlite-litefs/)
 
 # Hoarding Order With Livewire
 
