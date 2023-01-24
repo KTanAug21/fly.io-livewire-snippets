@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Document;
 use Illuminate\Support\Facades\Storage;
+use Log;
 
 class DocumentController extends Controller
 {
