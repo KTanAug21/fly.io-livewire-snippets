@@ -1,12 +1,12 @@
 <div>
     <form wire:submit.prevent="save" >
         <input type="file" id="myFile"/>
-        <button type="button" id="submit" onclick="getFolderName()">Submit</button>
+        <button type="button" id="submit" onclick="uploadChunks()">Submit</button>
     </form>
 
-    <script>
+    <script> 
        
-        function getFolderName()
+        function uploadChunks()
         {
             // File Details
             const file       = document.querySelector('#myFile').files[0];

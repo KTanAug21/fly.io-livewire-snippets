@@ -3,16 +3,17 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
-class BufferedFileUpload extends Component
-{  
+class ChunkedFileUpload extends Component
+{
+    
     use WithFileUploads;
 
     // Chunks info
     public $chunkSize  = 1000000; // 1MB
-    public $chunkCount = 0;
+    public $chunkCount = 0; 
     public $orderList  = [];
 
     // Uploaded chunk
@@ -57,9 +58,9 @@ class BufferedFileUpload extends Component
         }
  
     }
-    
+
     public function render()
     {
-        return view('livewire.buffered-file-upload');
+        return view('livewire.chunked-file-upload');
     }
 }
