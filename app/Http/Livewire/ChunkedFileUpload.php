@@ -4,59 +4,41 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\TemporaryUploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Log;
 
 class ChunkedFileUpload extends Component
 {
-    
     use WithFileUploads;
 
     // Chunks info
-    public $chunkSize  = 1000000; // 1MB
-    public $chunkCount = 0; 
-    public $orderList  = [];
-
-    // Uploaded chunk
+    public $chunkSize = 1000000; // 1M
     public $fileChunk;
 
     // Final file 
     public $fileName;
-    public $finalPath;
-
-    public function validateFile($request)
-    {
-        $fileTypes = ['pdf','csv','txt','xlx','xls'];
-        if( in_array( $request->file->extension(),$fileTypes) ){
-            return true;
-        }else{
-            return abort(422,'Please upload one of the following file types: '.json_encode($fileTypes));
-        }
-    }
+    public $fileSize;
+    public $finalFile;
 
     public function updatedFileChunk()
     {
-      
-        $this->orderList[] = $this->fileChunk->getFileName();
-        if( count($this->orderList)==$this->chunkCount ){
-           
-            $finalPath = Storage::path('/livewire-tmp/'.$this->fileName);
-          
-            foreach($this->orderList as $order){
-                $tmpPath = Storage::path('/livewire-tmp/'.$order);
-                $file = fopen($tmpPath, 'rb');
-                $buff = fread($file, $this->chunkSize);
-                fclose($file);
+        $finalPath = Storage::path('/livewire-tmp/'.$this->fileName);
+        $tmpPath = Storage::path('/livewire-tmp/'.$this->fileChunk->getFileName());
+        $file = fopen($tmpPath, 'rb');
+        $buff = fread($file, $this->chunkSize);
+        fclose($file);
 
-                $final = fopen($finalPath, 'ab');
-                fwrite($final, $buff);
-                fclose($final);
-          
-                unlink($tmpPath);
-            }
-            $this->finalPath = $finalPath;
+        $final = fopen($finalPath, 'ab');
+        fwrite($final, $buff);
+        fclose($final);
+        unlink($tmpPath);
+        $curSize = Storage::size('/livewire-tmp/'.$this->fileName);
 
+        Log::info('expected file size is '.$this->fileSize.' current merged size is: '.$curSize);
+        if( $curSize == $this->fileSize ){
+            $this->finalFile = TemporaryUploadedFile::createFromLivewire('/'.$this->fileName);
         }
- 
     }
 
     public function render()
