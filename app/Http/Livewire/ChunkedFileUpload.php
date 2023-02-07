@@ -24,7 +24,7 @@ class ChunkedFileUpload extends Component
     public function updatedFileChunk()
     {
         $finalPath = Storage::path('/livewire-tmp/'.$this->fileName);
-        $tmpPath = Storage::path('/livewire-tmp/'.$this->fileChunk->getFileName());
+        $tmpPath   = Storage::path('/livewire-tmp/'.$this->fileChunk->getFileName());
         $file = fopen($tmpPath, 'rb');
         $buff = fread($file, $this->chunkSize);
         fclose($file);
