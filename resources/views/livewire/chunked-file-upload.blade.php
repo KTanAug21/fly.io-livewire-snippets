@@ -8,7 +8,7 @@
         <button type="button" id="submit" onclick="uploadChunks()">Submit</button>
     </form>
 
-    <script>        
+    <script>         
         function uploadChunks()
         {
             // File Details
@@ -31,7 +31,7 @@
             @this.upload('fileChunk', chunk, (uName)=>{}, ()=>{}, (event) => {
                 // Progress callback.
                 if( event.detail.progress == 100 ){
-                    console.log('uploading next chunk if possible!');
+                    // We recursively call livewireUploadChunk from within itself
                     start = chunkEnd;
                     if( start < file.size ){
                         livewireUploadChunk( file, start );
