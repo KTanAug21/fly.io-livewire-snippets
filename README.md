@@ -75,6 +75,7 @@ To fix this, let's add a direction to our request for "data allowance". Every ti
 # Article Readme's
 1. [Hoarding Order With Livewire](https://github.com/KTanAug21/fly.io-livewire-snippets/blob/master/_readme/hoard_order_livewire.md)
 2. [Delayed Display of Isolated PDFs with Fly-Replay and Livewire](https://github.com/KTanAug21/fly.io-livewire-snippets/blob/master/_readme/display_isolated_fly_replay_livewire.md)
+3. [Chunked File Upload with Livewire](https://github.com/KTanAug21/fly.io-livewire-snippets/blob/master/_readme/chunked_file_upload_livewire.md)
 
 
 
