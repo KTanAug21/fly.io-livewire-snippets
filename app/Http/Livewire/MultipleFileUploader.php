@@ -22,27 +22,35 @@ class MultipleFileUploader extends Component
 
     public function updatedReports( $value, $key )
     {
-        
-        $index  = intval(explode('.',$key)[0]);
-        $report = $this->reports[$index];
-        if( isset($report['fileChunk']) ){
-         
-            $finalPath = Storage::path('/livewire-tmp/'.$report['fileName']);
-            $tmpPath   = Storage::path('/livewire-tmp/'.$report['fileChunk']->getFileName());
-            $file = fopen($tmpPath, 'rb');
-            $buff = fread($file, $this->chunkSize);
-            fclose($file);
+        Log::info('updated '.$key);
+        $index = intval(explode('.',$key)[0]);
+        $fileDetails = $this->reports[$index];
+        if( isset($fileDetails['fileChunk']) ){
+            Log::info('fileCHunk uploaded!');
+            $fileName  = $fileDetails['fileName'];
+            $finalPath = Storage::path('/livewire-tmp/'.$fileName);    
+
+            $chunkName = $fileDetails['fileChunk']->getFileName();
+            $chunkPath = Storage::path('/livewire-tmp/'.$chunkName);
+            $chunk      = fopen($chunkPath, 'rb');
+            $buff       = fread($chunk, $this->chunkSize);
+            fclose($chunk);
 
             $final = fopen($finalPath, 'ab');
             fwrite($final, $buff);
             fclose($final);
-            unlink($tmpPath);
-            $curSize = Storage::size('/livewire-tmp/'.$report['fileName']);
-            if( $curSize == $report['fileSize'] ){
-                Log::info('completed merging1');
-                $this->reports[$index]['fileRef'] = TemporaryUploadedFile::createFromLivewire('/'.$report['fileName']);
-            }
+            unlink($chunkPath);
 
+            $curSize = Storage::size('/livewire-tmp/'.$fileName);
+            $this->reports[$index]['progress'] = 
+            $curSize/$fileDetails['fileSize']*100;
+            Log::info( 'FIle size of '.$fileName.' is now '. $this->reports[$index]['progress']);
+            if( $this->reports[$index]['progress'] == 100 ){
+                $this->reports[$index]['fileRef'] = 
+                TemporaryUploadedFile::createFromLivewire(
+                  '/'.$fileDetails['fileName']
+                );
+            }
         }
     
     }

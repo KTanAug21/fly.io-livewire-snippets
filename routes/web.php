@@ -23,6 +23,6 @@ Route::get('/documents',[\App\Http\Controllers\DocumentController::class,'index'
 Route::get('/documents/display/{id}',[\App\Http\Controllers\DocumentController::class,'display']);
 Route::post('/documents/upload',[\App\Http\Controllers\DocumentCrudController::class,'upload'])->middleware(['with-secret']);
 Route::post('/documents/uploadfra',[\App\Http\Controllers\DocumentCrudController::class,'uploadFra'])->middleware(['with-secret']);
-
 Route::get('/documents/nuke',[\App\Http\Controllers\DocumentCrudController::class,'deleteAll'])->middleware(['with-secret']);
 
+Route::get('/reports',[\App\Http\Controllers\ReportController::class,'index']);

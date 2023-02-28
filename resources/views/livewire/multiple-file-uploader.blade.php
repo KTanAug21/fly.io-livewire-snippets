@@ -4,9 +4,9 @@
     @foreach( $reports as $index => $report )
         <div>
         @isset($report['fileName'] ) {{ $report['fileName'] }} @endisset
-        @isset($report['progressPercent'])
-            <div class="mt-2 bg-blue-50" >Uploading... {{ $report['progressPercent'] }}%
-                <progress max="100" value="{{ $report['progressPercent'] }}"></progress>
+        @isset($report['progress'])
+            <div class="mt-2 bg-blue-50" >Uploading... {{ $report['progress'] }}%
+                <progress max="100" wire:model="reports.{{$index}}.progress"></progress>
             </div>
         @endisset
         </div>
@@ -22,7 +22,7 @@
                 
                 @this.set('reports.'+index+'.fileName', file.name, true );
                 @this.set('reports.'+index+'.fileSize', file.size, true );
-                @this.set('reports.'+index+'.progressPercent', 0, true );
+                @this.set('reports.'+index+'.progress', 0, true );
                 livewireUploadChunk( index, file, 0 );
 
             });
