@@ -27,7 +27,6 @@
             // Get chunk from start
             const chunkEnd  = Math.min( start + @js($chunkSize), file.size );
             const chunk     = file.slice( start, chunkEnd ); 
-
             @this.upload('fileChunk', chunk, (uName)=>{}, ()=>{}, (event) => {
                 // Progress callback.
                 if( event.detail.progress == 100 ){
