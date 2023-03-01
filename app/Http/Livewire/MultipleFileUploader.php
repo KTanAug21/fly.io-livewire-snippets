@@ -17,7 +17,7 @@ class MultipleFileUploader extends Component
     public $progressPercent;
     
     // Chunking
-    public $chunkSize = 5000000; // 5MB
+    public $chunkSize = 2_000_000; // 5MB
     
 
     public function updatedReports( $value, $key )
@@ -48,7 +48,7 @@ class MultipleFileUploader extends Component
             if( $this->reports[$index]['progress'] == 100 ){
                 $this->reports[$index]['fileRef'] = 
                     TemporaryUploadedFile::createFromLivewire(
-                    '/'.$fileDetails['fileName']
+                        '/'.$fileDetails['fileName']
                     );
             }
         }
