@@ -37,7 +37,7 @@
 
             const chunkEnd = Math.min( start + @js($chunkSize), file.size );
             const chunk    = file.slice( start, chunkEnd );
-            console.log('chunking upload for file at index ',index, ' at ',start, ' and end ',chunkEnd, 'filesize is ', file.size);
+            console.log('chunking upload for file ' + file.name +' at index ',index, ' at ',start, ' and end ',chunkEnd, 'filesize is ', file.size);
 
             @this.upload('reports.'+index+'.fileChunk', chunk, (n)=>{},()=>{},(e)=>{
                 
