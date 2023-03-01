@@ -25,6 +25,8 @@
                 @this.set('reports.'+index+'.fileName', file.name, true );
                 @this.set('reports.'+index+'.fileSize', file.size, true );
                 @this.set('reports.'+index+'.progress', 0, true );
+                 // From the start to this end is the chunk of the file
+                console.log( index, ' ', file.name +": Chunk size is ",@js($chunkSize), " and file size is ", file.size );
                 livewireUploadChunk( index, file, 0 );
 
             });
@@ -32,12 +34,11 @@
 
         function livewireUploadChunk( index, file, start ){
 
-            // From the start to this end is the chunk of the file
-            console.log( "Chunk size is ",@js($chunkSize), " and file size is ", file.size );
+           
 
             const chunkEnd = Math.min( start + @js($chunkSize), file.size );
             const chunk    = file.slice( start, chunkEnd );
-            console.log('chunking upload for file ' + file.name +' at index ',index, ' at ',start, ' and end ',chunkEnd, 'filesize is ', file.size);
+            console.log( index, ' ', file.name +': chunking upload with start, ', start,' and end ',chunkEnd, 'filesize is ', file.size);
 
             @this.upload('reports.'+index+'.fileChunk', chunk, (n)=>{},()=>{},(e)=>{
                 
