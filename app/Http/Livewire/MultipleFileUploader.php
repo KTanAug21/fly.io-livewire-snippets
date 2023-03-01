@@ -17,7 +17,7 @@ class MultipleFileUploader extends Component
     public $progressPercent;
     
     // Chunking
-    public $chunkSize = 2_000_000; // 5MB
+    public $chunkSize = 5_000_000; // 5MB
     
 
     public function updatedReports( $value, $key )
