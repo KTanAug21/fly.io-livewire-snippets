@@ -17,16 +17,16 @@ class MultipleFileUploader extends Component
     public $progressPercent;
     
     // Chunking
-    public $chunkSize = 2000000; // 2M
+    public $chunkSize = 5000000; // 5MB
     
 
     public function updatedReports( $value, $key )
     {
-        Log::info('updated '.$key);
+       
         $index = intval(explode('.',$key)[0]);
         $fileDetails = $this->reports[$index];
         if( isset($fileDetails['fileChunk']) ){
-            Log::info('fileCHunk uploaded!');
+            
             $fileName  = $fileDetails['fileName'];
             $finalPath = Storage::path('/livewire-tmp/'.$fileName);    
 
@@ -43,13 +43,13 @@ class MultipleFileUploader extends Component
 
             $curSize = Storage::size('/livewire-tmp/'.$fileName);
             $this->reports[$index]['progress'] = 
-            $curSize/$fileDetails['fileSize']*100;
-            Log::info( 'FIle size of '.$fileName.' is now '. $this->reports[$index]['progress']);
+                round($curSize/$fileDetails['fileSize']*100,2);
+            
             if( $this->reports[$index]['progress'] == 100 ){
                 $this->reports[$index]['fileRef'] = 
-                TemporaryUploadedFile::createFromLivewire(
-                  '/'.$fileDetails['fileName']
-                );
+                    TemporaryUploadedFile::createFromLivewire(
+                    '/'.$fileDetails['fileName']
+                    );
             }
         }
     
@@ -57,6 +57,7 @@ class MultipleFileUploader extends Component
 
     public function render()
     {
+       
         return view('livewire.multiple-file-uploader');
     }
 }

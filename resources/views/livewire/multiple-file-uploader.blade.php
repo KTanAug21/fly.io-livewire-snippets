@@ -1,15 +1,17 @@
 <div>
     <input type="file" id="myFiles" multiple>
     
+    
     @foreach( $reports as $index => $report )
-        <div>
-        @isset($report['fileName'] ) {{ $report['fileName'] }} @endisset
-        @isset($report['progress'])
-            <div class="mt-2 bg-blue-50" >Uploading... {{ $report['progress'] }}%
-                <progress max="100" wire:model="reports.{{$index}}.progress"></progress>
+        @if( isset($report['fileName']) &&  $report['progress'] )
+            <div class="mt-2 bg-blue-50 rounded-full pt-2 pr-4 pl-4 pb-2">
+                <label class="flow-root">
+                    <div class="float-left">{{ $report['fileName'] }}</div>
+                    <div class="float-right">{{ $report['progress'] }}%</div>
+                </label>
+                <progress max="100" wire:model="reports.{{$index}}.progress" class="h-1 w-full bg-neutral-200 dark:bg-neutral-60"/>
             </div>
-        @endisset
-        </div>
+        @endif
     @endforeach
   
     <script>
@@ -31,6 +33,8 @@
         function livewireUploadChunk( index, file, start ){
 
             // From the start to this end is the chunk of the file
+            console.log( "Chunk size is ",@js($chunkSize), " and file size is ", file.size );
+
             const chunkEnd = Math.min( start + @js($chunkSize), file.size );
             const chunk    = file.slice( start, chunkEnd );
             console.log('chunking upload for file at index ',index, ' at ',start, ' and end ',chunkEnd, 'filesize is ', file.size);

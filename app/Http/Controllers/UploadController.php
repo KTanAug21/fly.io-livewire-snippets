@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Document;
-use Illuminate\Support\Facades\Storage;
-use Log;
-
-class ReportController extends Controller
+class UploadController extends Controller
 {
     /**
      * Returns the index page for the Documents module
@@ -14,7 +10,7 @@ class ReportController extends Controller
     public function index()
     {
        
-        return view('reports.index');
+        return view('uploads.index');
     }
   
 }
