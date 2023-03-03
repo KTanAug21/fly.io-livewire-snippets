@@ -2,35 +2,66 @@
 
 namespace App\Http\Livewire;
 
-use Log;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Storage;
 use Livewire\TemporaryUploadedFile;
-
+use Illuminate\Support\Facades\Storage;
+use Log;
 class MultipleFileUploader extends Component
 {
     use WithFileUploads;
-
-    // Base 
-    public $reports=[];
-    public $progressPercent;
-    
-    // Chunking
+    public $uploads   = [];
     public $chunkSize = 5_000_000; // 5MB
-    
 
-    public function updatedReports( $value, $key )
+    public function updatedUploads( $value, $key )
+    {
+        list($index, $attribute) = explode('.',$key);
+        if( $attribute == 'fileChunk' ){
+            $fileDetails = $this->uploads[intval($index)];
+            
+            // Final File
+            $fileName  = $fileDetails['fileName'];
+            $finalPath = Storage::path('/livewire-tmp/'.$fileName);  
+            
+            // Chunk File
+            $chunkName = $fileDetails['fileChunk']->getFileName();
+            $chunkPath = Storage::path('/livewire-tmp/'.$chunkName);
+            $chunk      = fopen($chunkPath, 'rb');
+            $buff       = fread($chunk, $this->chunkSize);
+            fclose($chunk);
+
+            // Merge Together
+            $final = fopen($finalPath, 'ab');
+            fwrite($final, $buff);
+            fclose($final);
+            unlink($chunkPath);
+
+            sleep(1);
+            // Progress
+            $curSize = Storage::size('/livewire-tmp/'.$fileName);
+            $this->uploads[$index]['progress'] = 
+            $curSize/$fileDetails['fileSize']*100;
+            if( $this->uploads[$index]['progress'] == 100 ){
+                $this->uploads[$index]['fileRef'] = 
+                TemporaryUploadedFile::createFromLivewire(
+                  '/'.$fileDetails['fileName']
+                );
+            }
+        }
+    }
+
+    public function updatedUpoloads( $value, $key )
     {
        
         $index = intval(explode('.',$key)[0]);
-        $fileDetails = $this->reports[$index];
+        $fileDetails = $this->uploads[$index];
         if( isset($fileDetails['fileChunk']) ){
-            
+           
             $fileName  = $fileDetails['fileName'];
-            $finalPath = Storage::path('/livewire-tmp/'.$fileName);    
+            $finalPath = Storage::path('/livewire-tmp/'.$fileName);     
 
             $chunkName = $fileDetails['fileChunk']->getFileName();
+            Log::info( 'File name to use is '.$fileDetails['fileName'] .' Generated chunk name of '.$chunkName);
             $chunkPath = Storage::path('/livewire-tmp/'.$chunkName);
             $chunk      = fopen($chunkPath, 'rb');
             $buff       = fread($chunk, $this->chunkSize);
@@ -39,14 +70,15 @@ class MultipleFileUploader extends Component
             $final = fopen($finalPath, 'ab');
             fwrite($final, $buff);
             fclose($final);
+            Log::info('deleting '.$chunkPath. ' for '. $fileDetails['fileName'] );
             unlink($chunkPath);
 
             $curSize = Storage::size('/livewire-tmp/'.$fileName);
-            $this->reports[$index]['progress'] = 
+            $this->uploads[$index]['progress'] = 
                 round($curSize/$fileDetails['fileSize']*100,2);
             
-            if( $this->reports[$index]['progress'] == 100 ){
-                $this->reports[$index]['fileRef'] = 
+            if( $this->uploads[$index]['progress'] == 100 ){
+                $this->uploads[$index]['fileRef'] = 
                     TemporaryUploadedFile::createFromLivewire(
                         '/'.$fileDetails['fileName']
                     );
@@ -57,7 +89,6 @@ class MultipleFileUploader extends Component
 
     public function render()
     {
-       
         return view('livewire.multiple-file-uploader');
     }
 }
