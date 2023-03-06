@@ -36,7 +36,7 @@ class MultipleFileUploader extends Component
             fclose($final);
             unlink($chunkPath);
 
-            sleep(1);
+            
             // Progress
             $curSize = Storage::size('/livewire-tmp/'.$fileName);
             $this->uploads[$index]['progress'] = 
