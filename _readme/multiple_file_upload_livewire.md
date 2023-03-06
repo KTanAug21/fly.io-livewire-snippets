@@ -1,7 +1,5 @@
 # Concurrent, Chunked, Multi-File Upload with Livewire!
 
-When a user uploads a file that exceeds our application's max request size, the upload will fail. 
-
 In [this article](https://fly.io/laravel-bytes/multi-file-upload-livewire/) we upload multiple files in concurrent requests, and optionally, in chunks!
 
 Livewire provides us its upload api to make this customization of its multi-file upload hassle free.
