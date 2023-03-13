@@ -35,8 +35,11 @@
                     chnkStarts[index] = 
                     Math.min( chnkStarts[index] + @js($chunkSize), file.size );
 
-                    if( chnkStarts[index] < file.size )
-                        livewireUploadChunk( index, file );
+                    if( chnkStarts[index] < file.size ){
+                        let _time = Math.floor((Math.random() * 2000) + 1);
+                        console.log('sleeping ',_time,'before next chunk upload');
+                        setTimeout( livewireUploadChunk, _time, index, file );
+                    }
                 }
             });
         }

@@ -32,8 +32,10 @@
                 if( event.detail.progress == 100 ){
                     // We recursively call livewireUploadChunk from within itself
                     start = chunkEnd;
-                    if( start < file.size ){
-                        livewireUploadChunk( file, start );
+                    if( chnkStarts[index] < file.size ){
+                        let _time = Math.floor((Math.random() * 2000) + 1);
+                        console.log('sleeping ',_time,'before next chunk upload');
+                        setTimeout( livewireUploadChunk, _time, file, start );
                     }
                 }
             });     

@@ -10,3 +10,5 @@ Livewire provides us its upload api to make this customization of its multi-file
 
 ## Footnotes
 1. In case anyone wants to persist their previously selected files whenever they select new files, you can read on a possible implementation logic here: https://laracasts.com/discuss/channels/livewire/multiple-image-upload-in-the-same-form ( from user ktan-lara )!
+
+2. Added random timeout before calling next chunks to upload! ( To avoid Too many requests error )
