@@ -77,6 +77,7 @@ To fix this, let's add a direction to our request for "data allowance". Every ti
 2. [Delayed Display of Isolated PDFs with Fly-Replay and Livewire](https://github.com/KTanAug21/fly.io-livewire-snippets/blob/master/_readme/display_isolated_fly_replay_livewire.md)
 3. [Chunked File Upload with Livewire](https://github.com/KTanAug21/fly.io-livewire-snippets/blob/master/_readme/chunked_file_upload_livewire.md)
 4. [Concurrent, Chunked, Multi-File Upload with Livewire](https://github.com/KTanAug21/fly.io-livewire-snippets/blob/master/_readme/multiple_file_upload_livewire.md)
+5. [No-Upload, Batched Import of Excel Data with Livewire](https://github.com/KTanAug21/fly.io-livewire-snippets/blob/master/_readme/no_upload_batched_data_import_livewire.md)
 
 
 
