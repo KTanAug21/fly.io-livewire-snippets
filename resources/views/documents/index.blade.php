@@ -1,14 +1,7 @@
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Document Table</title>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-       
-        @livewireStyles
-    </head>
-    <body class="flex items-center justify-center min-h-screen">
+<x-layout>
+    <x-slot:title>
+        Document Table
+    </x-slot>
 
     <div class="w-full max-w-6xl">
         <h1 class="text-6xl font-normal leading-normal mt-0 mb-2 text-pink-800">Documents</h1> 
@@ -34,8 +27,6 @@
 
     </div>
 
-    @livewireScripts
-
     <script>
         const showFileComponent = document.getElementById("showFileComponent");
         function checkFile( recordId )
@@ -43,6 +34,4 @@
             livewire.find(showFileComponent.getAttribute("wire:id")).setRecordId( recordId );
         }
     </script>
-
-    </body>
-</html>
+</x-layout>

@@ -16,7 +16,11 @@ use App\Http\Controllers\ArticleController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('articles.index');
+});
+
+Route::get('/import-page', function () {
+    return view('components.import-page');
 });
 
 Route::get('/documents',[\App\Http\Controllers\DocumentController::class,'index']);
@@ -27,3 +31,4 @@ Route::get('/documents/nuke',[\App\Http\Controllers\DocumentCrudController::clas
 
 //Route::get('/uploads',[\App\Http\Controllers\UploadController::class,'index']);
 //Route::get('/videos',[\App\Http\Controllers\VideoController::class,'index']);
+
