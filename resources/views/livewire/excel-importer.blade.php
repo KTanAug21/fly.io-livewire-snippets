@@ -6,7 +6,7 @@
     to-pink-100 
     via-pink-200
     from-pink-100
-    ">Import Excel Datasdasda</h1>
+    ">Import Excel Data</h1>
 
     <form onsubmit="return process()">
         <input type="file" id="myCSV" />
