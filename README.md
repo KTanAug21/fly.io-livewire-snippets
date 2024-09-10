@@ -11,7 +11,7 @@ Visit https://ktan-app.fly.dev/, up in [Fly.io](https://fly.io/) :heartbeat:
 ## Set up
 1. Clone the repository `git clone git@github.com:KTanAug21/fly.io-livewire-snippets.git`
 2. Get our vendor packages, run `composer update`
-3. Set up your .env file with your preferred database connection, may I recommend a simple sqlite for this demo?
+3. Set up your [.env](https://github.com/laravel/laravel/blob/master/.env.example) file with your preferred database connection, may I recommend a simple sqlite for this demo?
 ```
 DB_CONNECTION="sqlite"
 DB_DATABASE="/path/to/app/folder/database.sqlite"
