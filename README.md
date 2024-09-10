@@ -19,7 +19,7 @@ DB_DATABASE="/path/to/app/folder/database.sqlite"
 4. Run the migration `php artisan migrate`
 5. When following the article "Hoarding Order with Livewire", run the seeder `php artisan db:seed` or  `php artisan migrate:fresh --seed`
 5. Run `php artisan serve`
-6. Follow the Tailwind setup [here](https://tailwindcss.com/docs/guides/laravel) and Run `npm run dev`
+6. Follow the Tailwind setup [here](https://tailwindcss.com/docs/guides/laravel), but in short the most you'll need to run is `npm install -D tailwindcss postcss autoprefixer`, afterwards, run `npm run dev`
 
 ## Deploying through Fly.io
 1. Follow the deployment instructions [here](https://fly.io/docs/laravel/).
