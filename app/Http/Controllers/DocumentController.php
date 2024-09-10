@@ -28,9 +28,13 @@ class DocumentController extends Controller
     public function display($id)
     {
         $pdfDetails = Document::find($id);
-        Log::info('our config var value is '.config('app.fly_region') );
-        
+        // None found, don
+        if ( $pdfDetails == null ){
+            return null;
+        }
+
         // Decide replay
+        Log::info('our config var value is '.config('app.fly_region') );
         if( $pdfDetails->region_id != config('app.fly_region') ){     
 
             // Replay to identified region
