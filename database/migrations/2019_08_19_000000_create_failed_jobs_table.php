@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        if(Schema::hasTable('failed_jobs')) return;
         Schema::create('failed_jobs', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
