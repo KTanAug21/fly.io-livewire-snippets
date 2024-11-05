@@ -29,6 +29,6 @@ Route::post('/documents/upload',[\App\Http\Controllers\DocumentCrudController::c
 Route::post('/documents/uploadfra',[\App\Http\Controllers\DocumentCrudController::class,'uploadFra'])->middleware(['with-secret']);
 Route::get('/documents/nuke',[\App\Http\Controllers\DocumentCrudController::class,'deleteAll'])->middleware(['with-secret']);
 
-//Route::get('/uploads',[\App\Http\Controllers\UploadController::class,'index']);
+Route::get('/uploads',[\App\Http\Controllers\UploadController::class,'index']);
 //Route::get('/videos',[\App\Http\Controllers\VideoController::class,'index']);
 
